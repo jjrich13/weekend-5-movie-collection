@@ -1,3 +1,5 @@
+CREATE DATABASE "movie_collection";
+
 CREATE TABLE "movies" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR(200) NOT NULL,
