@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 //require the router here
-const genresRouter = require('./routes/genres.route.js')
-const moviesRouter = require('./routes/movies.route.js')
+const genresRouter = require('./routes/genres.route.js');
+const moviesRouter = require('./routes/movies.route.js');
 const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 
@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 //routes
-app.use('/property', propertyRouter);
+app.use('/movies', moviesRouter);
+app.use('/genres', genresRouter);
 
 app.use(express.static('server/public'));
 
