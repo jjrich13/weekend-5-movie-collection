@@ -1,3 +1,20 @@
 <h1>Movies</h1>
 {{vm.title}}
 {{vm.message}}
+<div>
+    <h3>Add new movie to your collection</h3>
+    <input type="text" placeholder="title" ng-model="vm.newMovie.title">
+    <select ng-model="vm.newMovie.genre"></select>
+    <input type="text" placeholder="director" ng-model="vm.newMovie.director">
+    <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
+    <button ng-click="vm.addMovie(vm.newMovie.title)">Add Movie</button>
+</div>
+
+<div>
+    <div ng-repeat="movie in vm.movies">
+        {{movie.title}}
+        {{movie.genre}}
+        {{movie.director}}
+        {{movie.released}}
+    </div>
+</div>

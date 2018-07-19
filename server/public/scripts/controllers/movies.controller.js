@@ -3,6 +3,7 @@ app.controller('MoviesController',['MoviesService', function(MoviesService){
     console.log('MoviesController has loaded');
     self.message = MoviesService.message;
     
+    self.addMovie = MoviesService.getMovieId
 
     self.title ='Movies'
 }]);
