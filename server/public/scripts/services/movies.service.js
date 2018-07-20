@@ -18,7 +18,7 @@ app.service('MoviesService', ['$http', function($http){
     // self.db_id = 0;
 
     //to change size, change the number:
-    self.imageUrlBase = 'http://image.tmdb.org/t/p/w185';
+    self.imageUrlBase = 'http://image.tmdb.org/t/p/w300';
 
     self.addMovie = function(newMovie){
         

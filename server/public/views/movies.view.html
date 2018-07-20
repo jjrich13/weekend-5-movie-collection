@@ -10,18 +10,23 @@
     </select>
     <input type="text" placeholder="director" ng-model="vm.newMovie.director">
     <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
-    <button ng-click="vm.getDb_id(vm.newMovie)">Add Movie</button>
+    <md-button class="md-primary md-raised" ng-click="vm.getDb_id(vm.newMovie)">Add Movie</md-button>
 </div>
 
-<div>
-    <div ng-repeat="movie in vm.movies.list">
+<md-content class="md-padding" layout="row" layout-wrap layout-align="left">
+    <md-card ng-repeat="movie in vm.movies.list">
+
         <img ng-src="{{vm.imageUrlBase}}{{movie.image_path}}">
-        <p>{{movie.title}}</p>
-        <p>{{movie.genre}}</p>
-        <p>{{movie.director}}</p>
-        <p>{{movie.released}}</p>
-        <button ng-click="vm.removeMovie(movie)">Remove</button>
-        
+        <md-card-header-text class="md-title">{{movie.title}}</md-card-header-text>
+        <md-card-content>{{movie.genre}}</md-card-content>
+        <md-card-content>{{movie.director}}</md-card-content>
+        <md-card-content>{{movie.released}}</md-card-content>
+        <md-card-footer>
+            <md-card-actions>
+                <md-button class="md-primary md-raised" ng-click="vm.removeMovie(movie)">Remove</md-button>
+            </md-card-actions>
+        </md-card-footer>
 
-    </div>
-</div>
+
+    </md-card>
+</md-content>
