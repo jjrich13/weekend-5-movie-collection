@@ -9,6 +9,10 @@ app.service('MoviesService', ['$http', function($http){
         list: []
     };
 
+    self.genresList = {
+        list: []
+    };
+
     self.details = {};
 
     // self.db_id = 0;
@@ -107,11 +111,25 @@ app.service('MoviesService', ['$http', function($http){
         console.log('Getting Genres');
         $http({
             method: 'GET',
-            url: '/genres'
+            url: '/genres/count'
         }).then( function (result){
             console.log(result.data);
             
             self.genres.list = result.data;
+        }).catch( function( err){
+            console.log(err);
+            
+        });
+    };
+
+    self.getGenresList = function () {
+        $http({
+            method: 'GET',
+            url: '/genres/list'
+        }).then( function (result){
+            console.log(result.data);
+            
+            self.genresList.list = result.data;
         }).catch( function( err){
             console.log(err);
             

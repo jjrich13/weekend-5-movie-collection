@@ -5,8 +5,7 @@
     <h3>Add new movie to your collection</h3>
     <input type="text" placeholder="title" ng-model="vm.newMovie.title">
     <select ng-model="vm.newMovie.genre_id">
-        <option>1</option>
-        <option>2</option>
+        <option ng-repeat="genre in vm.genresList.list" value="{{genre.id}}">{{genre.genre}}</option>
 
     </select>
     <input type="text" placeholder="director" ng-model="vm.newMovie.director">

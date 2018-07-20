@@ -21,12 +21,23 @@ router.post('/', (req, res)=> {
 });
 
 //GET genres -- also search?
-router.get('/', (req, res)=> {
+router.get('/count', (req, res)=> {
     console.log('Got to GET');
     pool.query(`SELECT "genres".genre, count(*) as "movies_in_genre" 
         FROM "genres"
         JOIN "movies" ON "movies".genre_id = "genres".id
         GROUP BY "genres".genre;`
+    ).then( result => {
+        res.send(result.rows);
+    }).catch( err => {
+        console.log(err);
+        res.sendStatus(500);
+    });
+});
+
+router.get('/list', (req, res)=> {
+    console.log('Got to GET');
+    pool.query(`SELECT * FROM "genres";`
     ).then( result => {
         res.send(result.rows);
     }).catch( err => {
