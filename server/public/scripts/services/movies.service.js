@@ -1,12 +1,19 @@
 app.service('MoviesService', ['$http', function($http){
     let self = this;
+
     self.movies = {
         list: []
-    }
+    };
 
-    self.details = {}
+    self.genres = {
+        list: []
+    };
+
+    self.details = {};
+
     // self.db_id = 0;
-    //to change size change the number
+
+    //to change size, change the number:
     self.imageUrlBase = 'http://image.tmdb.org/t/p/w185';
 
     self.addMovie = function(newMovie){
@@ -82,6 +89,34 @@ app.service('MoviesService', ['$http', function($http){
         
     };
 
+    self.addGenre = function (newGenre){
+        $http({
+            method: 'POST',
+            url: '/genres',
+            data: {newGenre: newGenre}
+        }).then( function (result){
+            console.log(result);
+            self.getGenres();
+        }).catch( function( err){
+            console.log(err);
+            
+        });
+    };
+
+    self.getGenres = function (){
+        console.log('Getting Genres');
+        $http({
+            method: 'GET',
+            url: '/genres'
+        }).then( function (result){
+            console.log(result.data);
+            
+            self.genres.list = result.data;
+        }).catch( function( err){
+            console.log(err);
+            
+        });
+    }
 
     self.message = 'Service has started';
 }]);

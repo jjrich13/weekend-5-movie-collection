@@ -1,3 +1,22 @@
 <h1>Genres</h1>
-{{vm.title}}
-{{vm.message}}
+
+<h3>Add Genre</h3>
+<div>
+    <input type="text" placeholder="new genre" ng-model="vm.newGenre">
+    <button ng-click="vm.addGenre(vm.newGenre)">Add Genre</button>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <th>Genre</th>
+            <th>Movies in Genre</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="genre in vm.genres.list">
+                <td>{{genre.genre}}</td>
+                <td>{{genre.movies_in_genre}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
