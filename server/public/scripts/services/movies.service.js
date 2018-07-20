@@ -134,6 +134,19 @@ app.service('MoviesService', ['$http', function($http){
             console.log(err);
             
         });
+    };
+
+    self.removeMovie = function(movie){
+        $http({
+            method: 'DELETE',
+            url: `/movies/${movie.id}`
+        }).then( function(results){
+            self.getMovies();
+        }).catch(function (err){
+            console.log(err);
+            
+        })
+        
     }
 
     self.message = 'Service has started';

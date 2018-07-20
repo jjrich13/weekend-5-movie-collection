@@ -1,10 +1,10 @@
 <h1>Movies</h1>
-{{vm.title}}
-{{vm.message}}
+
 <div>
     <h3>Add new movie to your collection</h3>
     <input type="text" placeholder="title" ng-model="vm.newMovie.title">
     <select ng-model="vm.newMovie.genre_id">
+        <option selected disabled value="">Genre</option>
         <option ng-repeat="genre in vm.genresList.list" value="{{genre.id}}">{{genre.genre}}</option>
 
     </select>
@@ -20,6 +20,7 @@
         <p>{{movie.genre}}</p>
         <p>{{movie.director}}</p>
         <p>{{movie.released}}</p>
+        <button ng-click="vm.removeMovie(movie)">Remove</button>
         
 
     </div>

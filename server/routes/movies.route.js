@@ -31,8 +31,17 @@ router.post('/', (req, res) => {
 });
 //GET movies --also search?
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM "movies"
-            JOIN "genres" ON "genres".id = "movies".genre_id;`
+    pool.query(`SELECT 
+        movies.id, 
+        movies.title, 
+        genres.genre, 
+        movies.db_id, 
+        movies.genre_id, 
+        movies.director, 
+        movies.image_path, 
+        movies.released 
+        FROM "movies"
+        JOIN "genres" ON "genres".id = "movies".genre_id;`
     ).then(result => {
         res.send(result.rows);
             
@@ -43,6 +52,21 @@ router.get('/', (req, res) => {
 });
 
 //DELETE movie
+router.delete('/:id', (req,res) => {
+    console.log(req.params.id);
+    
+    pool.query(
+        `DELETE FROM "movies" 
+        WHERE "id" = $1;`, 
+        [req.params.id]
+    ).then( result => {
+        res.sendStatus(200);
+    }).catch( err => {
+        console.log(err);
+        res.sendStatus(500);
+        
+    });
+});
 
 //PUT movie
 

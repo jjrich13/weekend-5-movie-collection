@@ -1,15 +1,16 @@
 app.controller('GenresController',['MoviesService', function(MoviesService){
     let self = this;
-    console.log('GenresController has loaded');
+
+    //variables
     self.message = MoviesService.message;
     self.genres = MoviesService.genres;
+    self.title ='Genres'
 
+    //defined functions
     self.addGenre = MoviesService.addGenre;
-
     self.getGenres = MoviesService.getGenres;
 
+    //called functions
     self.getGenres();
     
-
-    self.title ='Genres'
 }]);
