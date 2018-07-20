@@ -14,10 +14,13 @@
 </div>
 
 <div>
-    <div ng-repeat="movie in vm.movies">
-        {{movie.title}}
-        {{movie.genre}}
-        {{movie.director}}
-        {{movie.released}}
+    <div ng-repeat="movie in vm.movies.list">
+        <img ng-src="{{vm.imageUrlBase}}{{movie.image_path}}">
+        <p>{{movie.title}}</p>
+        <p>{{movie.genre}}</p>
+        <p>{{movie.director}}</p>
+        <p>{{movie.released}}</p>
+        
+
     </div>
 </div>

@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool.js');
 
 const router = express.Router();
-let apiKey ='7ba5feeb1c69e54538affe7c9eea0403'
+let apiKey = '7ba5feeb1c69e54538affe7c9eea0403'
 
 //POST new movie
 router.post('/', (req, res) => {
@@ -10,13 +10,13 @@ router.post('/', (req, res) => {
 
     pool.query(
             `INSERT INTO "movies" ("title", "genre_id", "director", "released", "image_path", "db_id")
-        VALUES ($1, $2, $3, $4, $5, $6);`, [
-            req.body.title,
-            req.body.genre_id,
-            req.body.director,
-            req.body.released,
-            req.body.image_path,
-            req.body.db_id
+            VALUES ($1, $2, $3, $4, $5, $6);`, [
+                req.body.title,
+                req.body.genre_id,
+                req.body.director,
+                req.body.released,
+                req.body.image_path,
+                req.body.db_id
             ]
         )
         .then(function (PGres) {
@@ -30,6 +30,17 @@ router.post('/', (req, res) => {
         });
 });
 //GET movies --also search?
+router.get('/', (req, res) => {
+    pool.query(`SELECT * FROM "movies"
+            JOIN "genres" ON "genres".id = "movies".genre_id;`
+    ).then(result => {
+        res.send(result.rows);
+            
+    }).catch( err => {
+        console.log(err);
+        res.sendStatus(500);
+    });
+});
 
 //DELETE movie
 
