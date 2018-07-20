@@ -24,13 +24,13 @@
     <link href="styles/style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body ng-app="MoviesApp">
-    <div class="container">
-        <nav class="navbar">
-            <a href="#!/movies">Movies</a>
-            <a href="#!/genres">Genres</a>
-        </nav>
-    </div>
+<body layout-padding ng-app="MoviesApp">
+    <h1>Movie Collection</h1>
+    <md-nav-bar md-selected-nav-item="currentNavItem">
+
+        <md-nav-item md-nav-href="#!/movies" name="movies">Movies</md-nav-item>
+        <md-nav-item md-nav-href="#!/genres" name="genres">Genres</md-nav-item>
+    </md-nav-bar>
     <ng-view></ng-view>
 </body>
 

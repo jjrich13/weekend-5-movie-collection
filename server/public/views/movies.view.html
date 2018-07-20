@@ -1,19 +1,38 @@
+
+<h3>Add new movie to your collection</h3>
+<md-content layout-padding>
+    <form>
+        <div>
+            <md-input-container>
+                <input type="text" placeholder="title" ng-model="vm.newMovie.title">
+            </md-input-container>
+        </div>
+        <div layout="row">
+            <md-input-container class="md-block">
+                <label for="select">Genre</label>
+                <md-select ng-model="vm.newMovie.genre_id">
+                    <md-option selected disabled value="">Genre</md-option>
+                    <md-option ng-repeat="genre in vm.genresList.list" value="{{genre.id}}">{{genre.genre}}</md-option>
+
+                </md-select>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="director" ng-model="vm.newMovie.director">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
+                </md-input-container>
+        </div>
+        <div>
+            <md-button class="md-primary md-raised" ng-click="vm.getDb_id(vm.newMovie)">Add Movie</md-button>
+        </div>
+    </form>
+</md-content>
+
 <h1>Movies</h1>
 
-<div>
-    <h3>Add new movie to your collection</h3>
-    <input type="text" placeholder="title" ng-model="vm.newMovie.title">
-    <select ng-model="vm.newMovie.genre_id">
-        <option selected disabled value="">Genre</option>
-        <option ng-repeat="genre in vm.genresList.list" value="{{genre.id}}">{{genre.genre}}</option>
 
-    </select>
-    <input type="text" placeholder="director" ng-model="vm.newMovie.director">
-    <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
-    <md-button class="md-primary md-raised" ng-click="vm.getDb_id(vm.newMovie)">Add Movie</md-button>
-</div>
-
-<md-content class="md-padding" layout="row" layout-wrap layout-align="left">
+<md-content layout="row" layout-wrap>
     <md-card ng-repeat="movie in vm.movies.list">
 
         <img ng-src="{{vm.imageUrlBase}}{{movie.image_path}}">

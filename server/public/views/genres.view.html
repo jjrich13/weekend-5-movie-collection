@@ -1,22 +1,31 @@
 <h1>Genres</h1>
 
 <h3>Add Genre</h3>
-<div>
+<md-input-container>
     <input type="text" placeholder="new genre" ng-model="vm.newGenre">
-    <button ng-click="vm.addGenre(vm.newGenre)">Add Genre</button>
+</md-input-container>
+<div>
+    <md-button class="md-primary md-raised" ng-click="vm.addGenre(vm.newGenre)">Add Genre</md-button>
 </div>
 
+
 <div>
-    <table>
-        <thead>
-            <th>Genre</th>
-            <th>Movies in Genre</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="genre in vm.genres.list">
-                <td>{{genre.genre}}</td>
-                <td>{{genre.movies_in_genre}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>Genres</span>
+        </h2>
+    </md-toolbar>
+
+    <md-content layout-align="center center">
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat="genre in vm.genres.list">
+                <div class="md-list-item-text">
+                    <h3>{{genre.genre}}</h3>
+                    
+                </div>
+                <h3>{{genre.movies_in_genre}} </h3>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-content>
 </div>

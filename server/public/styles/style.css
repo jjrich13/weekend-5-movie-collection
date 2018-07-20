@@ -1,3 +1,8 @@
 md-card {
     width: 275px;
 }
+
+form {
+    max-width: 50%;
+}
+
