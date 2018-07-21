@@ -1,4 +1,4 @@
-app.controller('MoviesController',['MoviesService', '$mdDialog', function(MoviesService, $mdDialog){
+app.controller('MoviesController', ['MoviesService', '$mdDialog', function (MoviesService, $mdDialog) {
     let self = this;
 
     //variables
@@ -6,7 +6,8 @@ app.controller('MoviesController',['MoviesService', '$mdDialog', function(Movies
     self.message = MoviesService.message;
     self.movies = MoviesService.movies;
     self.imageUrlBase = MoviesService.imageUrlBase;
-    self.title ='Movies'
+    self.title = 'Movies'
+    self.movieToEdit = MoviesService.movieToEdit;
 
     //defined functions
     self.getDb_id = MoviesService.getDb_id;
@@ -14,23 +15,29 @@ app.controller('MoviesController',['MoviesService', '$mdDialog', function(Movies
     self.getGenresList = MoviesService.getGenresList;
     self.getMovies = MoviesService.getMovies;
     self.removeMovie = MoviesService.removeMovie;
+    self.editDialog = MoviesService.editDialog;
+    self.editMovie = MoviesService.editMovie;
 
-    self.showConfirm = function(ev, movie) {
+    self.showConfirm = function (ev, movie) {
         // Appending dialog to document.body to cover sidenav in docs app
         console.log('clicked test');
-        
+
         let confirm = $mdDialog.confirm()
-              .title('Remove this movie from your collection?')
-              .textContent('This cannot be undone.')
-              .ariaLabel('Lucky day')
-              .targetEvent(ev)
-              .ok('Yeah, remove it')
-              .cancel('No let\'s keep it');
-    
-        $mdDialog.show(confirm).then(function() {
+            .title('Remove this movie from your collection?')
+            .textContent('This cannot be undone.')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Yeah, remove it')
+            .cancel('No let\'s keep it');
+
+        $mdDialog.show(confirm).then(function () {
             self.removeMovie(movie);
         });
-      };
+    };
+
+    
+
+    
 
     //called Functions
     self.getMovies();

@@ -1,0 +1,33 @@
+<md-dialog>
+    <md-content layout-padding>
+        <form>
+            <div>
+                <md-input-container>
+                    <input type="text" placeholder="title" ng-model="vm.movieToEdit.title">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <!-- <md-input-container class="md-block"> -->
+                <md-input-container>
+                    <label for="select">Genre</label>
+                    <md-select ng-model="vm.movieToEdit.genre_id">
+                        <md-option selected disabled value="">Genre</md-option>
+                        <md-option ng-repeat="genre in vm.genresList.list" value="{{genre.id}}">{{genre.genre}}</md-option>
+
+                    </md-select>
+                </md-input-container>
+                <!-- <md-input-container class="md-block"> -->
+                <md-input-container>
+                    <input type="text" placeholder="director" ng-model="vm.movieToEdit.director">
+                </md-input-container>
+                <!-- <md-input-container class="md-block"> -->
+                <md-input-container>
+                    <input type="number" placeholder="year of release" ng-model="vm.movieToEdit.released">
+                </md-input-container>
+            </div>
+            <div>
+                <md-button class="md-primary md-raised" ng-click="vm.editMovie(vm.movieToEdit)">Edit Movie</md-button>
+            </div>
+        </form>
+    </md-content>
+</md-dialog>

@@ -69,6 +69,25 @@ router.delete('/:id', (req,res) => {
 });
 
 //PUT movie
-
+router.put('/', (req, res) => {
+    console.log(req.body);
+    pool.query(`UPDATE "movies" 
+    SET "title" = $1, "genre_id" = $2, "db_id" = $3, "director" = $4, "image_path" = $5, "released" = $6 
+    WHERE "id" = $7;`, [
+        req.body.title, 
+        req.body.genre_id, 
+        req.body.db_id, 
+        req.body.director, 
+        req.body.image_path, 
+        req.body.released, 
+        req.body.id
+    ]).then( result => {
+        res.sendStatus(200);
+    }).catch( err => {
+        console.log(err);
+        
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;

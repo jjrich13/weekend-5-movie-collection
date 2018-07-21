@@ -9,6 +9,7 @@
         </div>
         <div layout="row">
             <md-input-container class="md-block">
+                    
                 <label for="select">Genre</label>
                 <md-select ng-model="vm.newMovie.genre_id">
                     <md-option selected disabled value="">Genre</md-option>
@@ -17,6 +18,7 @@
                 </md-select>
                 </md-input-container>
                 <md-input-container class="md-block">
+                   
                     <input type="text" placeholder="director" ng-model="vm.newMovie.director">
                 </md-input-container>
                 <md-input-container class="md-block">
@@ -43,6 +45,7 @@
         <md-card-footer>
             <md-card-actions>
                 <md-button class="md-primary md-raised" ng-click="vm.showConfirm($event, movie);">Remove</md-button>
+                <md-button class="md-primary md-raised" ng-click="vm.editDialog($event, movie);">Edit</md-button>
             </md-card-actions>
         </md-card-footer>
 
