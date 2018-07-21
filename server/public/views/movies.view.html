@@ -42,7 +42,7 @@
         <md-card-content>{{movie.released}}</md-card-content>
         <md-card-footer>
             <md-card-actions>
-                <md-button class="md-primary md-raised" ng-click="vm.removeMovie(movie)">Remove</md-button>
+                <md-button class="md-primary md-raised" ng-click="vm.showConfirm($event, movie);">Remove</md-button>
             </md-card-actions>
         </md-card-footer>
 
