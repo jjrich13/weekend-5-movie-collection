@@ -1,4 +1,4 @@
-app.controller('MoviesController',['MoviesService', function(MoviesService){
+app.controller('MoviesController',['MoviesService', '$mdDialog', function(MoviesService, $mdDialog){
     let self = this;
 
     //variables
@@ -14,6 +14,23 @@ app.controller('MoviesController',['MoviesService', function(MoviesService){
     self.getGenresList = MoviesService.getGenresList;
     self.getMovies = MoviesService.getMovies;
     self.removeMovie = MoviesService.removeMovie;
+
+    self.showConfirm = function(ev, movie) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        console.log('clicked test');
+        
+        let confirm = $mdDialog.confirm()
+              .title('Remove this movie from your collection?')
+              .textContent('This cannot be undone.')
+              .ariaLabel('Lucky day')
+              .targetEvent(ev)
+              .ok('Yeah, remove it')
+              .cancel('No let\'s keep it');
+    
+        $mdDialog.show(confirm).then(function() {
+            self.removeMovie(movie);
+        });
+      };
 
     //called Functions
     self.getMovies();
