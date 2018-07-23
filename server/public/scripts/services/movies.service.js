@@ -24,9 +24,16 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
     //this function is only ever called within self.getDb_id
     self.addMovie = function (newMovie) {
 
-        newMovie.db_id = self.details.db_id;
-        newMovie.image_path = self.details.image_path;
-        // console.log(newMovie);
+        newMovie.synopsis = self.details.synopsis;
+        newMovie.revenue = self.details.revenue;
+        newMovie.runtime = self.details.runtime;
+        newMovie.budget = self.details.budget;
+        newMovie.director = self.details.director;
+        newMovie.star1 = self.details.star1;
+        newMovie.star2 = self.details.star2;
+        newMovie.star3 = self.details.star3;
+        console.log(newMovie);
+        
         $http({
             method: 'POST',
             url: '/movies',
@@ -42,12 +49,11 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
         });
     };
 
-    self.getDetails = function (db_id) {
-        console.log(db_id);
+    self.getDetails = function (newMovie) {
 
         //this is two API get calls, nested, one inside the other, 
         $http.get(
-            `https://api.themoviedb.org/3/movie/${db_id}?api_key=7ba5feeb1c69e54538affe7c9eea0403&language=en-US`
+            `https://api.themoviedb.org/3/movie/${newMovie.db_id}?api_key=7ba5feeb1c69e54538affe7c9eea0403&language=en-US`
         ).then(function (result) {
             console.log('successful movieDB response:', result.data);
             self.details.synopsis = result.data.overview;
@@ -55,13 +61,14 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
             self.details.runtime = result.data.runtime;
             self.details.budget = result.data.budget;
             $http.get(
-                `https://api.themoviedb.org/3/movie/${db_id}/credits?api_key=7ba5feeb1c69e54538affe7c9eea0403`
+                `https://api.themoviedb.org/3/movie/${newMovie.db_id}/credits?api_key=7ba5feeb1c69e54538affe7c9eea0403`
             ).then(function (result) {
                 console.log('successful movieDB response:', result.data);
                 self.details.director = result.data.crew[0].name;
                 self.details.star1 = result.data.cast[0].name;
                 self.details.star2 = result.data.cast[1].name;
                 self.details.star3 = result.data.cast[2].name;
+                self.addMovie(newMovie);
                 console.log(self.details);
             }).catch(function (err) {
                 console.log(err);
@@ -70,6 +77,8 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
             console.log(err);
 
         });
+        
+        
         
         
     };
@@ -81,9 +90,9 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
         $http.get(
             `https://api.themoviedb.org/3/search/movie?api_key=7ba5feeb1c69e54538affe7c9eea0403&language=en-US&query=${newMovie.title}&page=1&include_adult=false`
         ).then(function (result) {
-            self.details.db_id = result.data.results[0].id;
-            self.details.image_path = result.data.results[0].poster_path;
-            self.addMovie(newMovie);
+            newMovie.db_id = result.data.results[0].id;
+            newMovie.image_path = result.data.results[0].poster_path;
+            self.getDetails(newMovie);
         }).catch(function (err) {
             console.log(err);
         })

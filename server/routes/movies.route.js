@@ -9,14 +9,21 @@ router.post('/', (req, res) => {
     console.log(req.body);
 
     pool.query(
-            `INSERT INTO "movies" ("title", "genre_id", "director", "released", "image_path", "db_id")
-            VALUES ($1, $2, $3, $4, $5, $6);`, [
+            `INSERT INTO "movies" ("title", "genre_id", "director", "released", "image_path", "db_id", "synopsis", "revenue", "runtime", "budget", "star1", "star2", "star3")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`, [
                 req.body.title,
                 req.body.genre_id,
                 req.body.director,
                 req.body.released,
                 req.body.image_path,
-                req.body.db_id
+                req.body.db_id,
+                req.body.synopsis,
+                req.body.revenue,
+                req.body.runtime,
+                req.body.budget,
+                req.body.star1,
+                req.body.star2,
+                req.body.star3,
             ]
         )
         .then(function (PGres) {
@@ -39,7 +46,14 @@ router.get('/', (req, res) => {
         movies.genre_id, 
         movies.director, 
         movies.image_path, 
-        movies.released 
+        movies.released,
+        movies.synopsis,
+        movies.revenue,
+        movies.runtime,
+        movies.budget,
+        movies.star1,
+        movies.star2,
+        movies.star3
         FROM "movies"
         JOIN "genres" ON "genres".id = "movies".genre_id;`
     ).then(result => {
