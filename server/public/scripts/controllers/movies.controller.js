@@ -6,7 +6,6 @@ app.controller('MoviesController', ['MoviesService', '$mdDialog', function (Movi
     self.message = MoviesService.message;
     self.movies = MoviesService.movies;
     self.imageUrlBase = MoviesService.imageUrlBase;
-    self.title = 'Movies'
     self.movieToEdit = MoviesService.movieToEdit;
     self.detailMode = MoviesService.detailMode;
 
@@ -22,8 +21,6 @@ app.controller('MoviesController', ['MoviesService', '$mdDialog', function (Movi
     
 
     self.showConfirm = function (ev, movie) {
-        // Appending dialog to document.body to cover sidenav in docs app
-        console.log('clicked test');
 
         let confirm = $mdDialog.confirm()
             .title('Remove this movie from your collection?')

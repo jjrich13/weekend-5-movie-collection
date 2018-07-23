@@ -6,8 +6,6 @@ let apiKey = '7ba5feeb1c69e54538affe7c9eea0403'
 
 //POST new movie
 router.post('/', (req, res) => {
-    console.log(req.body);
-
     pool.query(
             `INSERT INTO "movies" ("title", "genre_id", "director", "released", "image_path", "db_id", "synopsis", "revenue", "runtime", "budget", "star1", "star2", "star3")
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`, [
@@ -27,7 +25,6 @@ router.post('/', (req, res) => {
             ]
         )
         .then(function (PGres) {
-            console.log('Response from PG:', PGres);
             res.sendStatus(201);
 
         })
@@ -67,8 +64,6 @@ router.get('/', (req, res) => {
 
 //DELETE movie
 router.delete('/:id', (req,res) => {
-    console.log(req.params.id);
-    
     pool.query(
         `DELETE FROM "movies" 
         WHERE "id" = $1;`, 
@@ -84,7 +79,6 @@ router.delete('/:id', (req,res) => {
 
 //PUT movie
 router.put('/', (req, res) => {
-    console.log(req.body);
     pool.query(`UPDATE "movies" 
     SET "title" = $1, "genre_id" = $2, "db_id" = $3, "director" = $4, "image_path" = $5, "released" = $6 
     WHERE "id" = $7;`, [

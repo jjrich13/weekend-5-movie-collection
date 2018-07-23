@@ -2,12 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool.js');
 
 const router = express.Router();
-let apiKey ='7ba5feeb1c69e54538affe7c9eea0403'
+
+//for reference: apiKey ='7ba5feeb1c69e54538affe7c9eea0403'
 
 //Add new genre POST
 router.post('/', (req, res)=> {
-    console.log('Got to POST');
-    console.log(req.body.newGenre);
     
     pool.query(`INSERT INTO "genres" ("genre") 
         VALUES ($1);`, [req.body.newGenre]
@@ -22,7 +21,6 @@ router.post('/', (req, res)=> {
 
 //GET genres -- also search?
 router.get('/count', (req, res)=> {
-    console.log('Got to GET');
     pool.query(`SELECT "genres".genre, count(*) as "movies_in_genre" 
         FROM "genres"
         JOIN "movies" ON "movies".genre_id = "genres".id
@@ -36,7 +34,6 @@ router.get('/count', (req, res)=> {
 });
 
 router.get('/list', (req, res)=> {
-    console.log('Got to GET');
     pool.query(`SELECT * FROM "genres";`
     ).then( result => {
         res.send(result.rows);
@@ -47,7 +44,6 @@ router.get('/list', (req, res)=> {
 });
 //DELETE genre
 router.delete( '/:genre', (req, res) =>{
-    console.log(req.params.genre);
     pool.query(
         `DELETE FROM "genres" WHERE "genre" = $1;`,[
             req.params.genre
