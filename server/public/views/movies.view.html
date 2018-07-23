@@ -18,10 +18,6 @@
                 </md-select>
             </md-input-container>
             <md-input-container class="md-block">
-
-                <input type="text" placeholder="director" ng-model="vm.newMovie.director">
-            </md-input-container>
-            <md-input-container class="md-block">
                 <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
             </md-input-container>
         </div>
@@ -31,10 +27,9 @@
     </form>
 </md-content>
 
-<button ng-click="vm.detailMode = !vm.detailMode">Toggle Show</button>
+<md-button class="md-primary md-raised" ng-click="vm.detailMode = !vm.detailMode">Show All Movie Details</md-button>
 
 <h1>Movies</h1>
-{{vm.detailMode}}
 
 <md-content layout="row" layout-wrap>
     <md-card ng-repeat="movie in vm.movies.list">
@@ -42,13 +37,21 @@
             <img ng-show="!vm.detailMode" ng-src="{{vm.imageUrlBase}}{{movie.image_path}}">
             <md-card-header-text class="md-title">{{movie.title}}</md-card-header-text>
             <md-card-content ng-show="!vm.detailMode" >{{movie.genre}}</md-card-content>
-            <md-card-content ng-show="!vm.detailMode" >{{movie.director}}</md-card-content>
+            <md-card-content>Director: {{movie.director}}</md-card-content>
             <md-card-content ng-show="!vm.detailMode" >{{movie.released}}</md-card-content>
+            <md-card-content ng-show="vm.detailMode" >Starring: {{movie.star1}}, {{movie.star2}}, {{movie.star3}}</md-card-content>
+            <md-card-content ng-show="vm.detailMode" >
+                <h4>Synopsis</h4>
+                <p>{{movie.synopsis}}</p>
+            </md-card-content>
+            <md-card-content ng-show="vm.detailMode" >Revenue: ${{movie.revenue}}</md-card-content>
+            <md-card-content ng-show="vm.detailMode" >Runtime: {{movie.runtime}} min</md-card-content>
+            <md-card-content ng-show="vm.detailMode" >Budget: ${{movie.budget}}</md-card-content>
+
             <md-card-footer >
                 <md-card-actions>
-                    <md-button ng-show="!vm.detailMode" class="md-primary md-raised" ng-click="vm.showConfirm($event, movie)">Remove</md-button>
-                    <md-button ng-show="!vm.detailMode" class="md-primary md-raised" ng-click="vm.editDialog($event, movie)">Edit</md-button>
-                    <md-button class="md-primary md-raised" ng-click="vm.getDetails(movie.db_id)">Details</md-button>
+                    <md-button class="md-primary md-raised" ng-click="vm.showConfirm($event, movie)">Remove</md-button>
+                    <md-button class="md-primary md-raised" ng-click="vm.editDialog($event, movie)">Edit</md-button>
                 </md-card-actions>
             </md-card-footer>
         
