@@ -82,6 +82,14 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
             data: newMovie
         }).then(function (res) {
             self.getMovies();
+            $mdDialog.show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.querySelector('#popupContainer')))
+                  .clickOutsideToClose(true)
+                  .title('Done!')
+                  .textContent('Movie added!')
+                  .ok('Got it!')
+              );
         }).catch(function (err) {
             console.log(err);
             alert('Error');
@@ -111,6 +119,14 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
             }
         }).then(function (result) {
             self.getGenres();
+            $mdDialog.show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.querySelector('#popupContainer')))
+                  .clickOutsideToClose(true)
+                  .title('Done!')
+                  .textContent('Genre added!')
+                  .ok('Got it!')
+              );
         }).catch(function (err) {
             console.log(err);
             alert('Error');
@@ -149,6 +165,14 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
             url: `/movies/${movie.id}`
         }).then(function (results) {
             self.getMovies();
+            $mdDialog.show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.querySelector('#popupContainer')))
+                  .clickOutsideToClose(true)
+                  .title('Done!')
+                  .textContent('Movie deleted.')
+                  .ok('Got it!')
+              );
         }).catch(function (err) {
             console.log(err);
             alert('Error');
@@ -180,6 +204,14 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
                 data: movie
             }).then(function (results) {
                 self.getMovies();
+                $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Done!')
+                      .textContent('Movie Edited!')
+                      .ok('Got it!')
+                  );
             }).catch(function (err) {
                 console.log(err);
                 alert('Error');
@@ -200,6 +232,14 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
             url: `genres/${genre.genre}`
         }).then( function (result){
             self.getGenres();
+            $mdDialog.show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.querySelector('#popupContainer')))
+                  .clickOutsideToClose(true)
+                  .title('Done!')
+                  .textContent('Genre and related movies deleted.')
+                  .ok('Got it!')
+              );
         }).catch( function(err){
             console.log(err);
             alert('Error');
