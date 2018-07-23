@@ -21,9 +21,10 @@
             <md-list-item class="md-3-line" ng-repeat="genre in vm.genres.list">
                 <div class="md-list-item-text">
                     <h3>{{genre.genre}}</h3>
-                    
+
                 </div>
                 <h3>{{genre.movies_in_genre}} </h3>
+                <md-button class="md-primary md-raised" ng-click="vm.showConfirm($event, genre)">Remove</md-button>
                 <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
         </md-list>

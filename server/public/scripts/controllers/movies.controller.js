@@ -8,6 +8,7 @@ app.controller('MoviesController', ['MoviesService', '$mdDialog', function (Movi
     self.imageUrlBase = MoviesService.imageUrlBase;
     self.title = 'Movies'
     self.movieToEdit = MoviesService.movieToEdit;
+    self.detailMode = MoviesService.detailMode;
 
     //defined functions
     self.getDb_id = MoviesService.getDb_id;
@@ -17,6 +18,8 @@ app.controller('MoviesController', ['MoviesService', '$mdDialog', function (Movi
     self.removeMovie = MoviesService.removeMovie;
     self.editDialog = MoviesService.editDialog;
     self.editMovie = MoviesService.editMovie;
+    self.getDetails = MoviesService.getDetails;
+    
 
     self.showConfirm = function (ev, movie) {
         // Appending dialog to document.body to cover sidenav in docs app

@@ -15,11 +15,13 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
 
     self.details = {};
 
-    // self.db_id = 0;
+
+    
 
     //to change size, change the number:
     self.imageUrlBase = 'http://image.tmdb.org/t/p/w300';
 
+    //this function is only ever called within self.getDb_id
     self.addMovie = function (newMovie) {
 
         newMovie.db_id = self.details.db_id;
@@ -40,38 +42,48 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
         });
     };
 
-    self.getDetails = function (movieId) {
+    self.getDetails = function (db_id) {
+        console.log(db_id);
 
+        //this is two API get calls, nested, one inside the other, 
         $http.get(
-            `https://api.themoviedb.org/3/movie/${movieId}?api_key=7ba5feeb1c69e54538affe7c9eea0403&language=en-US`
+            `https://api.themoviedb.org/3/movie/${db_id}?api_key=7ba5feeb1c69e54538affe7c9eea0403&language=en-US`
         ).then(function (result) {
-            //do something with result
-            console.log('successful movieDB response:', result);
-            //
+            console.log('successful movieDB response:', result.data);
+            self.details.synopsis = result.data.overview;
+            self.details.revenue = result.data.revenue;
+            self.details.runtime = result.data.runtime;
+            self.details.budget = result.data.budget;
+            $http.get(
+                `https://api.themoviedb.org/3/movie/${db_id}/credits?api_key=7ba5feeb1c69e54538affe7c9eea0403`
+            ).then(function (result) {
+                console.log('successful movieDB response:', result.data);
+                self.details.director = result.data.crew[0].name;
+                self.details.star1 = result.data.cast[0].name;
+                self.details.star2 = result.data.cast[1].name;
+                self.details.star3 = result.data.cast[2].name;
+                console.log(self.details);
+            }).catch(function (err) {
+                console.log(err);
+            });
         }).catch(function (err) {
             console.log(err);
 
-        })
+        });
+        
+        
     };
 
-    //grabbing DB id and image path
+    //this function is called on the Add Movie Button Click
+    //then it calls self.addMovie
+    //I did it like this because the API call takes too long and the order of operations was getting screwed up because the code was moving on before the response came back
     self.getDb_id = function (newMovie) {
-        // console.log(newMovie.title);
-
-
         $http.get(
             `https://api.themoviedb.org/3/search/movie?api_key=7ba5feeb1c69e54538affe7c9eea0403&language=en-US&query=${newMovie.title}&page=1&include_adult=false`
         ).then(function (result) {
-            //do something with the result
-            // console.log('successful movieDB response:', result.data.results[0].id);
             self.details.db_id = result.data.results[0].id;
             self.details.image_path = result.data.results[0].poster_path;
-            self.addMovie(newMovie)
-            // console.log(newMovie);
-
-            // return result.data.results[0].id;
-            //maybe view more button?
-
+            self.addMovie(newMovie);
         }).catch(function (err) {
             console.log(err);
         })
@@ -191,8 +203,21 @@ app.service('MoviesService', ['$http', '$mdDialog', function ($http, $mdDialog) 
 
         }).catch(function (err) {
             console.log(err);
-        })
+        });
         
+    }
+
+    self.deleteGenre = function (genre){
+        console.log('Delete Genre');
+        $http({
+            method: 'DELETE',
+            url: `genres/${genre.genre}`
+        }).then( function (result){
+            self.getGenres();
+        }).catch( function(err){
+            console.log(err);
+            
+        })
     }
 
     self.message = 'Service has started';

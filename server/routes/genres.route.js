@@ -46,7 +46,20 @@ router.get('/list', (req, res)=> {
     });
 });
 //DELETE genre
-
+router.delete( '/:genre', (req, res) =>{
+    console.log(req.params.genre);
+    pool.query(
+        `DELETE FROM "genres" WHERE "genre" = $1;`,[
+            req.params.genre
+        ]
+    ).then(result => {
+        res.sendStatus(200);
+    }).catch( err => {
+        console.log(err);
+        
+        res.send(500);
+    })
+})
 
 
 module.exports = router;

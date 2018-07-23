@@ -1,5 +1,5 @@
-
-<h3>Add new movie to your collection</h3>
+<h3>
+    Add new movie to your collection</h3>
 <md-content layout-padding>
     <form>
         <div>
@@ -9,21 +9,21 @@
         </div>
         <div layout="row">
             <md-input-container class="md-block">
-                    
+
                 <label for="select">Genre</label>
                 <md-select ng-model="vm.newMovie.genre_id">
                     <md-option selected disabled value="">Genre</md-option>
                     <md-option ng-repeat="genre in vm.genresList.list" value="{{genre.id}}">{{genre.genre}}</md-option>
 
                 </md-select>
-                </md-input-container>
-                <md-input-container class="md-block">
-                   
-                    <input type="text" placeholder="director" ng-model="vm.newMovie.director">
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
-                </md-input-container>
+            </md-input-container>
+            <md-input-container class="md-block">
+
+                <input type="text" placeholder="director" ng-model="vm.newMovie.director">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <input type="number" placeholder="year of release" ng-model="vm.newMovie.released">
+            </md-input-container>
         </div>
         <div>
             <md-button class="md-primary md-raised" ng-click="vm.getDb_id(vm.newMovie)">Add Movie</md-button>
@@ -31,24 +31,27 @@
     </form>
 </md-content>
 
-<h1>Movies</h1>
+<button ng-click="vm.detailMode = !vm.detailMode">Toggle Show</button>
 
+<h1>Movies</h1>
+{{vm.detailMode}}
 
 <md-content layout="row" layout-wrap>
     <md-card ng-repeat="movie in vm.movies.list">
 
-        <img ng-src="{{vm.imageUrlBase}}{{movie.image_path}}">
-        <md-card-header-text class="md-title">{{movie.title}}</md-card-header-text>
-        <md-card-content>{{movie.genre}}</md-card-content>
-        <md-card-content>{{movie.director}}</md-card-content>
-        <md-card-content>{{movie.released}}</md-card-content>
-        <md-card-footer>
-            <md-card-actions>
-                <md-button class="md-primary md-raised" ng-click="vm.showConfirm($event, movie);">Remove</md-button>
-                <md-button class="md-primary md-raised" ng-click="vm.editDialog($event, movie);">Edit</md-button>
-            </md-card-actions>
-        </md-card-footer>
-
+            <img ng-show="!vm.detailMode" ng-src="{{vm.imageUrlBase}}{{movie.image_path}}">
+            <md-card-header-text class="md-title">{{movie.title}}</md-card-header-text>
+            <md-card-content ng-show="!vm.detailMode" >{{movie.genre}}</md-card-content>
+            <md-card-content ng-show="!vm.detailMode" >{{movie.director}}</md-card-content>
+            <md-card-content ng-show="!vm.detailMode" >{{movie.released}}</md-card-content>
+            <md-card-footer >
+                <md-card-actions>
+                    <md-button ng-show="!vm.detailMode" class="md-primary md-raised" ng-click="vm.showConfirm($event, movie)">Remove</md-button>
+                    <md-button ng-show="!vm.detailMode" class="md-primary md-raised" ng-click="vm.editDialog($event, movie)">Edit</md-button>
+                    <md-button class="md-primary md-raised" ng-click="vm.getDetails(movie.db_id)">Details</md-button>
+                </md-card-actions>
+            </md-card-footer>
+        
 
     </md-card>
 </md-content>

@@ -9,27 +9,27 @@ app.controller('GenresController',['MoviesService', '$mdDialog', function(Movies
     //defined functions
     self.addGenre = MoviesService.addGenre;
     self.getGenres = MoviesService.getGenres;
+    self.deleteGenre = MoviesService.deleteGenre;
 
     //called functions
     self.getGenres();
     
 
-    self.showConfirm = function(ev) {
+    self.showConfirm = function (ev, genre) {
         // Appending dialog to document.body to cover sidenav in docs app
         console.log('clicked test');
-        
+
         let confirm = $mdDialog.confirm()
-              .title('Would you like to delete your debt?')
-              .textContent('All of the banks have agreed to forgive you your debts.')
-              .ariaLabel('Lucky day')
-              .targetEvent(ev)
-              .ok('Please do it!')
-              .cancel('Sounds like a scam');
-    
-        $mdDialog.show(confirm).then(function() {
-          self.status = 'You decided to get rid of your debt.';
-        }, function() {
-          self.status = 'You decided to keep your debt.';
+            .title('Remove Genre and related Movies from your collection?')
+            .textContent('This will remove both the Genre and all movies in this Genre. This cannot be undone.')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Delete Genre and its Movies')
+            .cancel('No, Keep \'em');
+
+        $mdDialog.show(confirm).then(function () {
+            self.deleteGenre(genre);
         });
-      };
+    };
+
 }]);
